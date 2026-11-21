@@ -1,0 +1,58 @@
+﻿networks:
+  aether-edge:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+services:
+
+  edge-01-nginx:
+    image: nginx:alpine
+    container_name: EDGE-01
+    networks:
+      aether-edge:
+        ipv4_address: 172.20.0.10
+    ports:
+      - "8081:80"
+    labels:
+      - "aether.node=EDGE-01"
+      - "aether.role=web-gateway"
+      - "aether.monitor=true"
+    restart: unless-stopped
+
+  edge-02-flask:
+    image: python:3.11-alpine
+    container_name: EDGE-02
+    networks:
+      aether-edge:
+        ipv4_address: 172.20.0.20
+    ports:
+      - "8082:5000"
+    volumes:
+      - C:/AETHER/edge02_app.py:/app/app.py
+    working_dir: /app
+    labels:
+      - "aether.node=EDGE-02"
+      - "aether.role=microservice-api"
+      - "aether.monitor=true"
+    command: sh -c "pip install flask --quiet && python app.py"
+    restart: unless-stopped
+
+  edge-03-postgres:
+    image: postgres:15-alpine
+    container_name: EDGE-03
+    networks:
+      aether-edge:
+        ipv4_address: 172.20.0.30
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: aether_edge
+      POSTGRES_USER: aether
+      POSTGRES_PASSWORD: aether_secure_2024
+    labels:
+      - "aether.node=EDGE-03"
+      - "aether.role=database"
+      - "aether.monitor=true"
+    restart: unless-stopped

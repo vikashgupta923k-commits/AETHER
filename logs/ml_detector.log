@@ -1,0 +1,125 @@
+2026-11-22 00:26:11.848 +05:30 | INFO     | __main__:__init__:18 - MLAnomalyDetector initialized — IsolationForest ready
+2026-11-22 00:26:11.848 +05:30 | INFO     | __main__:<module>:98 - Running ML detector test — feeding 25 snapshots...
+2026-11-22 00:26:11.849 +05:30 | INFO     | __main__:<module>:105 - Sample 1/25 added
+2026-11-22 00:26:12.354 +05:30 | INFO     | __main__:<module>:105 - Sample 6/25 added
+2026-11-22 00:26:12.858 +05:30 | INFO     | __main__:<module>:105 - Sample 11/25 added
+2026-11-22 00:26:13.363 +05:30 | INFO     | __main__:<module>:105 - Sample 16/25 added
+2026-11-22 00:26:14.029 +05:30 | SUCCESS  | __main__:_train:55 - ML model trained on 20 samples
+2026-11-22 00:26:14.130 +05:30 | INFO     | __main__:<module>:105 - Sample 21/25 added
+2026-11-22 00:26:14.647 +05:30 | INFO     | __main__:<module>:108 - ML Prediction: {
+  "anomaly": false,
+  "score": -0.5,
+  "reason": [],
+  "samples_trained": 25,
+  "cpu_percent": 18.2,
+  "ram_percent": 89.9
+}
+2026-11-22 00:27:36.497 +05:30 | INFO     | core.database:__init__:15 - Database initialized at C:/AETHER/database/aether.db
+2026-11-22 00:27:36.497 +05:30 | INFO     | agents.anomaly_detector:__init__:18 - AnomalyDetector initialized
+2026-11-22 00:27:38.662 +05:30 | INFO     | agents.ml_detector:__init__:18 - MLAnomalyDetector initialized — IsolationForest ready
+2026-11-22 00:27:38.815 +05:30 | INFO     | recovery.docker_recovery:__init__:13 - Docker Recovery Engine connected
+2026-11-22 00:27:43.123 +05:30 | INFO     | core.database:__init__:15 - Database initialized at C:/AETHER/database/aether.db
+2026-11-22 00:27:43.123 +05:30 | INFO     | agents.anomaly_detector:__init__:18 - AnomalyDetector initialized
+2026-11-22 00:27:44.916 +05:30 | INFO     | agents.ml_detector:__init__:18 - MLAnomalyDetector initialized — IsolationForest ready
+2026-11-22 00:27:44.946 +05:30 | INFO     | recovery.docker_recovery:__init__:13 - Docker Recovery Engine connected
+2026-11-22 00:27:51.183 +05:30 | INFO     | core.database:__init__:15 - Database initialized at C:/AETHER/database/aether.db
+2026-11-22 00:27:51.184 +05:30 | INFO     | agents.anomaly_detector:__init__:18 - AnomalyDetector initialized
+2026-11-22 00:27:53.042 +05:30 | INFO     | agents.ml_detector:__init__:18 - MLAnomalyDetector initialized — IsolationForest ready
+2026-11-22 00:27:53.071 +05:30 | INFO     | recovery.docker_recovery:__init__:13 - Docker Recovery Engine connected
+2026-11-22 00:27:58.277 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:03.321 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:05.086 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:10.187 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:15.189 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:20.186 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:25.192 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:30.186 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:30.437 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:35.189 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:40.178 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:45.181 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:46.166 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:50.194 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:28:55.194 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:00.184 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:05.188 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:18.198 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:20.004 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:21.353 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:21.574 +05:30 | SUCCESS  | agents.ml_detector:_train:55 - ML model trained on 20 samples
+2026-11-22 00:29:26.336 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:31.336 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:36.338 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:41.454 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:46.336 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:52.194 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:29:57.189 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:02.189 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:07.185 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:12.181 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:17.191 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:22.183 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:27.185 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:32.177 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:37.185 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:38.907 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:42.189 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:30:47.181 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:31:18.198 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:32:18.198 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:37:37.923 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:37:42.188 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:37:47.184 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:37:52.180 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:37:57.181 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:02.181 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:07.181 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:11.293 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:12.410 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:12.606 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:12.814 +05:30 | SUCCESS  | agents.ml_detector:_train:55 - ML model trained on 50 samples
+2026-11-22 00:38:12.919 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:13.200 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:18.165 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:23.169 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:28.167 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:33.172 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:38.184 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:43.184 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:48.194 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:53.189 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:38:58.190 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:03.195 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:08.188 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:13.188 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:18.183 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:23.165 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:25.978 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:30.978 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:35.991 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:40.981 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:45.988 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:50.983 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:39:55.980 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:00.980 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:05.989 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:10.985 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:16.193 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:21.185 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:26.181 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:30.984 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:32.062 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:37.025 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:42.188 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:47.196 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:52.187 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:40:57.179 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:41:02.192 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:41:07.185 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:41:12.192 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:41:17.192 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:41:22.192 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:41:27.182 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:41:32.178 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:41:37.186 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot
+2026-11-22 00:42:18.187 +05:30 | WARNING  | agents.anomaly_detector:analyze:159 - Detected 1 anomalies in snapshot

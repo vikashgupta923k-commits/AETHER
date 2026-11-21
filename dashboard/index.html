@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AETHER — Control Plane</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#08060f;
+  --surface:#0f0d1a;
+  --surface2:#151225;
+  --surface3:#1a1730;
+  --border:#2a2545;
+  --border2:#352f5c;
+  --purple:#a855f7;
+  --purple2:#7c3aed;
+  --purple-dim:#a855f715;
+  --purple-glow:#a855f733;
+  --violet:#c084fc;
+  --pink:#e879f9;
+  --pink-dim:#e879f915;
+  --green:#34d399;
+  --green-dim:#34d39915;
+  --red:#f87171;
+  --red-dim:#f8717115;
+  --yellow:#fbbf24;
+  --yellow-dim:#fbbf2415;
+  --blue:#60a5fa;
+  --blue-dim:#60a5fa15;
+  --text:#e2dff5;
+  --muted:#6b6494;
+  --muted2:#4a4470;
+  --font:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden}
+
+/* GRID BG */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:40px 40px;opacity:0.3;pointer-events:none;z-index:0;
+}
+
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 36px;height:58px;
+  background:linear-gradient(90deg,#0f0d1a,#0d0b18);
+  border-bottom:1px solid var(--border2);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px);
+}
+.nav-left{display:flex;align-items:center;gap:16px}
+.nav-logo{font-weight:800;font-size:17px;letter-spacing:1.5px;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-sub{font-size:11px;color:var(--muted);letter-spacing:0.5px;border-left:1px solid var(--border2);padding-left:16px}
+.nav-pill{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;font-family:var(--mono);letter-spacing:1px}
+.pill-op{background:var(--green-dim);color:var(--green);border:1px solid #34d39933}
+.pill-deg{background:var(--yellow-dim);color:var(--yellow);border:1px solid #fbbf2433}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:blink 2s infinite}
+.nav-time{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:1px}
+
+/* MAIN */
+main{padding:32px 36px;max-width:1500px;margin:0 auto;position:relative;z-index:1}
+
+/* SECTION LABEL */
+.sec{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:36px 0 14px;display:flex;align-items:center;gap:10px}
+.sec::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent)}
+
+/* OVERVIEW CARDS */
+.ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ov-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:22px 24px;position:relative;overflow:hidden;cursor:default;
+  transition:border-color 0.2s,transform 0.2s;
+}
+.ov-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.ov-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-color,transparent) 0%,transparent 60%);opacity:0.04;pointer-events:none}
+.ov-card .ov-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.ov-card .ov-val{font-size:38px;font-weight:700;font-family:var(--mono);line-height:1;letter-spacing:-1px}
+.ov-card .ov-sub{font-size:11px;color:var(--muted);margin-top:10px;font-family:var(--mono)}
+.ov-accent{position:absolute;top:0;left:0;right:0;height:2px;border-radius:14px 14px 0 0}
+
+/* NODE CARDS */
+.nodes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.node-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:24px;transition:all 0.2s;position:relative;overflow:hidden;
+}
+.node-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.node-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,var(--purple-dim),transparent 70%);pointer-events:none}
+.node-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.node-name{font-size:16px;font-weight:700;font-family:var(--mono);letter-spacing:0.5px;background:linear-gradient(135deg,var(--violet),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.node-role{font-size:10px;color:var(--muted);margin-top:4px;font-family:var(--mono);letter-spacing:0.5px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;font-family:var(--mono);letter-spacing:1px;text-transform:uppercase}
+.b-run{background:var(--green-dim);color:var(--green);border:1px solid #34d39930}
+.b-stop{background:var(--red-dim);color:var(--red);border:1px solid #f8717130}
+.b-oth{background:var(--yellow-dim);color:var(--yellow);border:1px solid #fbbf2430}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:blink 1.5s infinite}
+.node-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.metric-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.metric-box .ml{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.metric-box .mv{font-size:20px;font-weight:600;font-family:var(--mono);line-height:1}
+.pbar{height:3px;background:var(--border);border-radius:2px;margin-top:10px;overflow:hidden}
+.pfill{height:100%;border-radius:2px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1)}
+.node-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.nbtn{padding:9px;border-radius:9px;border:1px solid;font-size:10px;font-weight:700;font-family:var(--mono);cursor:pointer;transition:all 0.15s;letter-spacing:1px;text-transform:uppercase}
+.nbtn-r{background:var(--purple-dim);border-color:var(--purple-glow);color:var(--violet)}
+.nbtn-r:hover{background:var(--purple-glow);border-color:var(--purple)}
+.nbtn-s{background:var(--red-dim);border-color:#f8717130;color:var(--red)}
+.nbtn-s:hover{background:#f8717125;border-color:var(--red)}
+.nbtn:disabled{opacity:0.3;cursor:not-allowed}
+
+/* TELEMETRY */
+.tel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tel-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;position:relative;overflow:hidden}
+.tel-card::before{content:'';position:absolute;bottom:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:var(--tc-color,var(--purple-dim));filter:blur(30px);opacity:0.5}
+.tel-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.tel-val{font-size:52px;font-weight:700;font-family:var(--mono);line-height:1;letter-spacing:-2px}
+.tel-bar{height:5px;background:var(--border);border-radius:3px;margin:20px 0 10px;overflow:hidden}
+.tel-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(0.4,0,0.2,1)}
+.tel-detail{font-size:11px;color:var(--muted);font-family:var(--mono)}
+
+/* INCIDENT TABLE */
+.inc-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.inc-head{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border)}
+.inc-title{font-size:13px;font-weight:600;letter-spacing:0.5px}
+.inc-count{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.inc-empty{padding:48px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px}
+.inc-empty span{display:block;font-size:28px;margin-bottom:12px;opacity:0.3}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);padding:12px 24px;border-bottom:1px solid var(--border)}
+td{padding:13px 24px;font-size:11px;font-family:var(--mono);border-bottom:1px solid #0f0d1a}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;padding:13px 20px;border-radius:12px;font-size:11px;font-family:var(--mono);font-weight:600;z-index:999;opacity:0;transform:translateY(12px);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);pointer-events:none;letter-spacing:0.5px}
+.toast.show{opacity:1;transform:translateY(0)}
+.t-ok{background:var(--green-dim);border:1px solid #34d39933;color:var(--green)}
+.t-err{background:var(--red-dim);border:1px solid #f8717133;color:var(--red)}
+.t-inf{background:var(--purple-dim);border:1px solid var(--purple-glow);color:var(--violet)}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">AETHER</div>
+    <div class="nav-sub">Control Plane &nbsp;v1.0</div>
+  </div>
+  <div class="nav-pill pill-op" id="platformPill"><span class="nav-dot"></span><span id="platformTxt">OPERATIONAL</span></div>
+  <div class="nav-time" id="navTime">--:--:--</div>
+</nav>
+
+<main>
+  <div class="sec">Platform Overview</div>
+  <div class="ov-grid">
+    <div class="ov-card" style="--accent-color:var(--green)">
+      <div class="ov-accent" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
+      <div class="ov-label">Nodes Running</div>
+      <div class="ov-val" id="ovNodes" style="color:var(--green)">--</div>
+      <div class="ov-sub" id="ovNodesTotal">of -- total</div>
+    </div>
+    <div class="ov-card" style="--accent-color:var(--purple)">
+      <div class="ov-accent" style="background:linear-gradient(90deg,var(--purple),transparent)"></div>
+      <div class="ov-label">CPU Usage</div>
+      <div class="ov-val" id="ovCpu" style="color:var(--violet)">--%</div>
+      <div class="ov-sub" id="ovCpuSub">-- logical cores</div>
+    </div>
+    <div class="ov-card" style="--accent-color:var(--pink)">
+      <div class="ov-accent" style="background:linear-gradient(90deg,var(--pink),transparent)"></div>
+      <div class="ov-label">Memory Used</div>
+      <div class="ov-val" id="ovRam" style="color:var(--pink)">--%</div>
+      <div class="ov-sub" id="ovRamSub">-- GB / -- GB</div>
+    </div>
+    <div class="ov-card" style="--accent-color:var(--red)">
+      <div class="ov-accent" style="background:linear-gradient(90deg,var(--red),transparent)"></div>
+      <div class="ov-label">Active Anomalies</div>
+      <div class="ov-val" id="ovAnomaly" style="color:var(--muted)">0</div>
+      <div class="ov-sub" id="ovAnomalySub">last check --</div>
+    </div>
+  </div>
+
+  <div class="sec">Edge Nodes</div>
+  <div class="nodes-grid" id="nodesGrid">
+    <div class="node-card" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--mono);font-size:12px;min-height:200px">Connecting to nodes...</div>
+  </div>
+
+  <div class="sec">System Telemetry</div>
+  <div class="tel-grid">
+    <div class="tel-card" style="--tc-color:#a855f720">
+      <div class="tel-label">CPU</div>
+      <div class="tel-val" id="telCpu" style="color:var(--violet)">--%</div>
+      <div class="tel-bar"><div class="tel-fill" id="telCpuBar" style="background:linear-gradient(90deg,var(--purple2),var(--purple));width:0%"></div></div>
+      <div class="tel-detail" id="telCpuDet">-- cores</div>
+    </div>
+    <div class="tel-card" style="--tc-color:#e879f920">
+      <div class="tel-label">Memory</div>
+      <div class="tel-val" id="telRam" style="color:var(--pink)">--%</div>
+      <div class="tel-bar"><div class="tel-fill" id="telRamBar" style="background:linear-gradient(90deg,var(--purple2),var(--pink));width:0%"></div></div>
+      <div class="tel-detail" id="telRamDet">-- GB / -- GB</div>
+    </div>
+    <div class="tel-card" style="--tc-color:#34d39920">
+      <div class="tel-label">Disk</div>
+      <div class="tel-val" id="telDisk" style="color:var(--green)">--%</div>
+      <div class="tel-bar"><div class="tel-fill" id="telDiskBar" style="background:linear-gradient(90deg,#059669,var(--green));width:0%"></div></div>
+      <div class="tel-detail" id="telDiskDet">-- GB free</div>
+    </div>
+  </div>
+
+  <div class="sec">Incident Log</div>
+  <div class="inc-box">
+    <div class="inc-head">
+      <div class="inc-title">Recent Incidents</div>
+      <div class="inc-count" id="incCount">0 records</div>
+    </div>
+    <div id="incBody"><div class="inc-empty"><span>◎</span>No incidents — all systems nominal</div></div>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API='http://localhost:8000';
+
+function toast(msg,type='inf'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast t-'+type+' show';
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+function badge(status){
+  if(status==='running') return '<span class="badge b-run"><span class="badge-dot"></span>RUNNING</span>';
+  if(status==='exited'||status==='stopped') return '<span class="badge b-stop"><span class="badge-dot"></span>STOPPED</span>';
+  return '<span class="badge b-oth"><span class="badge-dot"></span>'+status.toUpperCase()+'</span>';
+}
+
+function pcolor(v){
+  if(v>90) return 'var(--red)';
+  if(v>75) return 'var(--yellow)';
+  return 'var(--green)';
+}
+
+async function fetchHealth(){
+  try{
+    const d=await(await fetch(API+'/health')).json();
+    document.getElementById('ovNodes').textContent=d.nodes_running;
+    document.getElementById('ovNodesTotal').textContent='of '+d.nodes_total+' total';
+    const p=document.getElementById('platformPill');
+    const t=document.getElementById('platformTxt');
+    if(d.status==='healthy'){p.className='nav-pill pill-op';t.textContent='OPERATIONAL';}
+    else{p.className='nav-pill pill-deg';t.textContent='DEGRADED';}
+  }catch(e){}
+}
+
+async function fetchNodes(){
+  try{
+    const d=await(await fetch(API+'/nodes')).json();
+    const roleMap={'web-gateway':'nginx · port 8081','microservice-api':'flask · port 8082','database':'postgres · port 5433'};
+    document.getElementById('nodesGrid').innerHTML=d.nodes.map(n=>`
+      <div class="node-card" id="nc-${n.name}">
+        <div class="node-top">
+          <div>
+            <div class="node-name">${n.name}</div>
+            <div class="node-role">${roleMap[n.role]||n.role}</div>
+          </div>
+          ${badge(n.status)}
+        </div>
+        <div class="node-metrics">
+          <div class="metric-box">
+            <div class="ml">CPU</div>
+            <div class="mv" id="nc-cpu-${n.name}" style="color:var(--violet)">--%</div>
+            <div class="pbar"><div class="pfill" id="nc-cpub-${n.name}" style="background:var(--purple);width:0%"></div></div>
+          </div>
+          <div class="metric-box">
+            <div class="ml">Memory</div>
+            <div class="mv" id="nc-mem-${n.name}" style="color:var(--pink)">--%</div>
+            <div class="pbar"><div class="pfill" id="nc-memb-${n.name}" style="background:var(--pink);width:0%"></div></div>
+          </div>
+        </div>
+        <div class="node-btns">
+          <button class="nbtn nbtn-r" onclick="restartNode('${n.name}',this)">↺ RESTART</button>
+          <button class="nbtn nbtn-s" onclick="stopNode('${n.name}',this)">■ STOP</button>
+        </div>
+      </div>
+    `).join('');
+    d.nodes.forEach(n=>fetchStats(n.name));
+  }catch(e){}
+}
+
+async function fetchStats(name){
+  try{
+    const r=await fetch(API+'/nodes/'+name+'/stats');
+    if(!r.ok)return;
+    const s=await r.json();
+    const ce=document.getElementById('nc-cpu-'+name);
+    const me=document.getElementById('nc-mem-'+name);
+    const cb=document.getElementById('nc-cpub-'+name);
+    const mb=document.getElementById('nc-memb-'+name);
+    if(ce){ce.textContent=s.cpu_percent.toFixed(1)+'%';ce.style.color=pcolor(s.cpu_percent);}
+    if(me){me.textContent=s.mem_percent.toFixed(1)+'%';me.style.color=pcolor(s.mem_percent);}
+    if(cb){cb.style.width=Math.min(s.cpu_percent,100)+'%';cb.style.background=pcolor(s.cpu_percent);}
+    if(mb){mb.style.width=Math.min(s.mem_percent,100)+'%';mb.style.background=pcolor(s.mem_percent);}
+  }catch(e){}
+}
+
+async function fetchSnapshot(){
+  try{
+    const d=await(await fetch(API+'/snapshot')).json();
+    const cpu=d._dash?.cpu_percent||d.cpu?.total_percent||0;
+    const ram=d.ram?.percent_used||0;
+    const ml=d.ml_anomaly||{};
+    if(document.getElementById('ovMl'))document.getElementById('ovMl').textContent=ml.samples_trained?ml.anomaly?'⚠ ANOMALY':'✓ NORMAL':'TRAINING';
+    if(document.getElementById('ovMlSub'))document.getElementById('ovMlSub').textContent=ml.samples_trained?ml.samples_trained+' samples trained':((ml.samples||0)+'/20 samples');
+    document.getElementById('ovCpu').textContent=cpu.toFixed(1)+'%';
+    document.getElementById('ovRam').textContent=ram.toFixed(1)+'%';
+    document.getElementById('ovCpuSub').textContent=(d.cpu?.logical_count||'--')+' logical cores';
+    const u=d.ram?.used_gb||0,tot=d.ram?.total_gb||0;
+    document.getElementById('ovRamSub').textContent=u.toFixed(1)+' GB / '+tot.toFixed(1)+' GB';
+    document.getElementById('telCpu').textContent=cpu.toFixed(1)+'%';
+    document.getElementById('telRam').textContent=ram.toFixed(1)+'%';
+    document.getElementById('telCpuBar').style.width=Math.min(cpu,100)+'%';
+    document.getElementById('telRamBar').style.width=Math.min(ram,100)+'%';
+    document.getElementById('telCpuDet').textContent=(d.cpu?.logical_count||'--')+' logical cores';
+    document.getElementById('telRamDet').textContent=u.toFixed(1)+' GB / '+tot.toFixed(1)+' GB';
+    if(d.disk&&d.disk[0]){
+      const dk=d.disk[0];
+      document.getElementById('telDisk').textContent=(dk.percent_used||0).toFixed(1)+'%';
+      document.getElementById('telDiskBar').style.width=Math.min(dk.percent_used||0,100)+'%';
+      const free=((dk.free_gb||0)).toFixed(1);
+      document.getElementById('telDiskDet').textContent=free+' GB free on '+dk.mountpoint;
+    }
+    const an=d.anomalies||[];
+    const av=document.getElementById('ovAnomaly');
+    av.textContent=an.length;
+    av.style.color=an.length>0?'var(--red)':'var(--green)';
+    document.getElementById('ovAnomalySub').textContent='updated '+new Date().toLocaleTimeString();
+  }catch(e){console.error("fetchSnapshot error:",e);}
+}
+
+async function fetchIncidents(){
+  try{
+    const d=await(await fetch(API+'/incidents?limit=10')).json();
+    document.getElementById('incCount').textContent=d.total+' records';
+    const b=document.getElementById('incBody');
+    if(!d.incidents||!d.incidents.length){
+      b.innerHTML='<div class="inc-empty"><span>◎</span>No incidents — all systems nominal</div>';return;
+    }
+    const sc={'CRITICAL':'var(--red)','HIGH':'var(--yellow)','MEDIUM':'var(--violet)','LOW':'var(--muted)'};
+    const ss={'RESOLVED':'var(--green)','FAILED':'var(--red)','RECOVERING':'var(--yellow)','DETECTED':'var(--violet)'};
+    b.innerHTML='<table><thead><tr><th>ID</th><th>Node</th><th>Type</th><th>Severity</th><th>Status</th><th>Time</th><th>MTTR</th></tr></thead><tbody>'+
+    d.incidents.map(i=>`<tr>
+      <td style="color:var(--muted2)">${i.incident_id||'--'}</td>
+      <td style="color:var(--violet)">${i.node_id||'LOCAL'}</td>
+      <td>${i.anomaly_type||'--'}</td>
+      <td style="color:${sc[i.severity]||'var(--muted)'}">${i.severity||'--'}</td>
+      <td style="color:${ss[i.status]||'var(--muted)'}">${i.status||'--'}</td>
+      <td style="color:var(--muted)">${i.detected_at?new Date(i.detected_at).toLocaleTimeString():'--'}</td>
+      <td style="color:var(--muted)">${i.mttr_seconds?i.mttr_seconds.toFixed(1)+'s':'--'}</td>
+    </tr>`).join('')+'</tbody></table>';
+  }catch(e){}
+}
+
+async function restartNode(name,btn){
+  btn.disabled=true;btn.textContent='↺ ...';
+  toast('Restarting '+name+'...','inf');
+  try{
+    const r=await fetch(API+'/nodes/'+name+'/restart',{method:'POST'});
+    const d=await r.json();
+    if(d.success) toast(name+' recovered in '+d.recovery_time_sec.toFixed(1)+'s','ok');
+    else toast('Failed: '+(d.detail||'unknown'),'err');
+  }catch(e){toast('Request failed','err');}
+  btn.disabled=false;btn.textContent='↺ RESTART';
+  fetchNodes();fetchHealth();
+}
+
+async function stopNode(name,btn){
+  btn.disabled=true;btn.textContent='■ ...';
+  toast('Stopping '+name+' (Failure Lab)','inf');
+  try{await fetch(API+'/nodes/'+name+'/stop',{method:'POST'});toast(name+' stopped','err');}catch(e){}
+  btn.disabled=false;btn.textContent='■ STOP';
+  setTimeout(()=>{fetchNodes();fetchHealth();},1500);
+}
+
+function clock(){document.getElementById('navTime').textContent=new Date().toLocaleTimeString('en-GB',{hour12:false});}
+async function refresh(){await Promise.all([fetchHealth(),fetchNodes(),fetchSnapshot(),fetchIncidents()]);}
+
+setInterval(clock,1000);
+setInterval(refresh,5000);
+refresh();clock();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
